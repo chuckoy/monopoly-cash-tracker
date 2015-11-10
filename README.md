@@ -5,7 +5,7 @@ Running from command line:
     `python game.py -players <players> -initial_money <initial_money>`
       
 * `players` is a comma-separated string of the names of the players.
-* `initial_money` follows the format: <number>(M|K), where M stands for millions, and K stands for thousands.
+* `initial_money` follows the format: `<number>` (M|K), where M stands for millions, and K stands for thousands.
   
 Hotkeys:
 
