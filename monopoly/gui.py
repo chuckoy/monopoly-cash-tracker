@@ -154,14 +154,12 @@ class GUI:
         self.number.set(rest)
 
     def plus_clicked(self, *args):
-        print(self.payment_flag)
         if self.payment_flag:
             self.game.collect_pool_money(self.selected_player)
             self.update_player_list()
             self.payment_flag = False
         else:
             amount, quantifier = self.get_input()
-            print("plus clicked")
             self.game.add_money(self.selected_player, amount, quantifier)
             self.update_player_list()
 

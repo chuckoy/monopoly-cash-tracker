@@ -8,7 +8,6 @@ class Player:
         self.pk = pk
         self.name = name
         self.balance = utils.quantify(amount, quantifier)
-        print(type(self.balance))
 
     def get_pk(self):
         return self.pk

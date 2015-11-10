@@ -9,46 +9,41 @@ import utils
 
 
 def main(argv):
-    num_players = ''
-    players = ''
-    initial_money = ''
+    players = ('A', 'B', 'C', 'D')
+    amount = '15'
+    quantifier = 'M'
     parser = argparse.ArgumentParser(
         description='Monopoly Calculator (go paperless!)')
-    parser.add_argument('num_players', metavar='num_players',
-                        type=int, nargs=1,
-                        help='The number of players that will play')
-    parser.add_argument('players', metavar='players', nargs=1,
+    parser.add_argument('-players', metavar='players', nargs=1,
                         help='The (comma-separated) names of the players ' +
                              'who will play')
-    parser.add_argument('initial_money', metavar='initial_money', nargs=1,
+    parser.add_argument('-initial_money', metavar='initial_money', nargs=1,
                         help='The amount of money players will start with ' +
                              'in millions or thousands.\n' +
                              'Format: <amount>(M/m/K/k)')
     args = parser.parse_args()
 
-    num_players = args.num_players[0]
-    players = args.players[0].split(",")
-    for i, player in enumerate(players):
-        players[i] = player.strip()
-    if len(players) != int(num_players):
-        print("Players given and number of players don't match!")
-        sys.exit()
+    if args.players:
+        players = args.players[0].split(",")
+        for i, player in enumerate(players):
+            players[i] = player.strip()
 
-    initial_money = args.initial_money[0]
-    valid_input = re.match(r'\d+\s*(M|m|K|k)', initial_money)
-    if not valid_input:
-        print("Wrong inital money format! Add quantifier at end!")
-        sys.exit()
-    amount = initial_money[:-1]
-    quantifier = initial_money[-1].upper()
+    if args.initial_money:
+        initial_money = args.initial_money[0]
+        valid_input = re.match(r'\d+\s*(M|m|K|k)', initial_money)
+        if not valid_input:
+            print("Wrong inital money format! Add quantifier at end!")
+            sys.exit()
+        amount = initial_money[:-1]
+        quantifier = initial_money[-1].upper()
 
-    monopoly = Monopoly(num_players, players, amount, quantifier)
+    monopoly = Monopoly(players, amount, quantifier)
 
 
 class Monopoly:
 
-    def __init__(self, num_players, players, amount, quantifier):
-        self.num_players = int(num_players)
+    def __init__(self, players, amount, quantifier):
+        self.num_players = len(players)
         self.players = []
         self.pooled_money = 0
         for pk, player in enumerate(players):
