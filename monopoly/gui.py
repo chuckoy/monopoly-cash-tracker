@@ -41,9 +41,13 @@ class GUI:
                                         columns=('money', 'pk'),
                                         displaycolumns=('money'),
                                         selectmode='browse')
+
         # Name the column headers
         self.player_list.heading('#0', text='Name')
         self.player_list.heading('money', text='Money')
+
+        # Bind click event to set player change
+        self.player_list.bind('<ButtonRelease-1>', self.player_clicked)
 
         # Populate tree
         self.draw_player_list()
@@ -150,7 +154,6 @@ class GUI:
     def backspace(self, *args):
         old_value = self.number.get()
         rest = old_value[:-1]
-        last = old_value[-1]
         self.number.set(rest)
 
     def plus_clicked(self, *args):
@@ -177,6 +180,7 @@ class GUI:
 
     def player_clicked(self, *args):
         self.selected_player = self.player_list.focus()
+        print(self.player_list.focus())
 
     def update_player_list(self):
         for player in self.game.get_players():
@@ -191,10 +195,6 @@ class GUI:
                                     values=(player.get_balance_display(),
                                             player.get_pk()),
                                     tags=(player.get_pk()))
-
-            # Assign click event to designate active player
-            self.player_list.tag_bind(player.get_pk(), '<ButtonRelease-1>',
-                                      self.player_clicked)
 
     def get_input(self):
         amount = self.number.get()

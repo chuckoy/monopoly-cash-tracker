@@ -38,6 +38,7 @@ def main(argv):
         quantifier = initial_money[-1].upper()
 
     monopoly = Monopoly(players, amount, quantifier)
+    monopoly.play()
 
 
 class Monopoly:
@@ -48,7 +49,6 @@ class Monopoly:
         self.pooled_money = 0
         for pk, player in enumerate(players):
             self.players.append(Player(pk, player, int(amount), quantifier))
-        self.play()
 
     def play(self):
         gui = GUI(self)
@@ -87,15 +87,14 @@ class Monopoly:
         player.modify_balance(float(amount) * -1, quantifier)
 
     def pool_money(self, amount, quantifier):
-        print(type(self.pooled_money))
-        print(type(utils.quantify(amount, quantifier)))
         self.pooled_money += utils.quantify(amount, quantifier)
+        print('total pooled money: ', self.pooled_money)
 
     def collect_pool_money(self, name):
-        print(self.pooled_money)
-        print(type(self.pooled_money))
         player = self.find_player(name)
         player.modify_balance(self.pooled_money, 'K')
+        self.pooled_money = 0
+        print('total pooled money: ', self.pooled_money)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
