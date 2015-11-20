@@ -2,7 +2,6 @@ import argparse
 import re
 import sys
 
-from errors import BankruptError
 from gui import GUI
 from player import Player
 import utils
@@ -30,7 +29,8 @@ def main(argv):
 
     if args.initial_money:
         initial_money = args.initial_money[0]
-        valid_input = re.match(r'\d+\s*(M|m|K|k)', initial_money)
+        valid_input = re.match(r'\d+\.{0,1}\d*(M|m|K|k)', initial_money)
+        valid_input = True
         if not valid_input:
             print("Wrong inital money format! Add quantifier at end!")
             sys.exit()
@@ -48,7 +48,7 @@ class Monopoly:
         self.players = []
         self.pooled_money = 0
         for pk, player in enumerate(players):
-            self.players.append(Player(pk, player, int(amount), quantifier))
+            self.players.append(Player(pk, player, float(amount), quantifier))
 
     def play(self):
         gui = GUI(self)
