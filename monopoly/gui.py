@@ -45,9 +45,6 @@ class GUI:
         self.player_list.heading('#0', text='Name')
         self.player_list.heading('money', text='Money')
 
-        # Bind click event to set player change
-        self.player_list.bind('<ButtonRelease-1>', self.player_clicked)
-
         # Populate tree
         self.draw_player_list()
 
