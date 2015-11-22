@@ -12,7 +12,6 @@ class GUI:
         self.game = game
         self.no_dot = True
         self.payment_flag = False
-        self.selected_player = ''
 
         # Create window
         self.root = Tk()
@@ -158,29 +157,28 @@ class GUI:
 
     def plus_clicked(self, *args):
         if self.payment_flag:
-            self.game.collect_pool_money(self.selected_player)
+            self.game.collect_pool_money(self.get_selected_player())
             self.update_player_list()
             self.payment_flag = False
         else:
             amount, quantifier = self.get_input()
-            self.game.add_money(self.selected_player, amount, quantifier)
+            self.game.add_money(self.get_selected_player(), amount, quantifier)
             self.update_player_list()
 
     def payment(self, *args):
         self.payment_flag = True
         amount, quantifier = self.get_input()
-        self.game.deduct_money(self.selected_player, amount, quantifier)
+        self.game.deduct_money(self.get_selected_player(), amount, quantifier)
         self.game.pool_money(amount, quantifier)
         self.update_player_list()
 
     def minus_clicked(self, *args):
         amount, quantifier = self.get_input()
-        self.game.deduct_money(self.selected_player, amount, quantifier)
+        self.game.deduct_money(self.get_selected_player(), amount, quantifier)
         self.update_player_list()
 
-    def player_clicked(self, *args):
-        self.selected_player = self.player_list.focus()
-        print(self.player_list.focus())
+    def get_selected_player(self):
+        return self.player_list.focus()
 
     def update_player_list(self):
         for player in self.game.get_players():
