@@ -29,10 +29,9 @@ def main(argv):
 
     if args.initial_money:
         initial_money = args.initial_money[0]
-        valid_input = re.match(r'\d+\.{0,1}\d*(M|m|K|k)', initial_money)
-        valid_input = True
+        valid_input = re.match(r'(\d+|\d+\.\d+)(M|m|K|k)', initial_money)
         if not valid_input:
-            print("Wrong inital money format! Add quantifier at end!")
+            print("Wrong inital money format!")
             sys.exit()
         amount = initial_money[:-1]
         quantifier = initial_money[-1].upper()
