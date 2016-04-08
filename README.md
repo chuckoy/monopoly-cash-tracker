@@ -21,7 +21,7 @@ Hotkeys:
 
 Developed on Python 3 in an Ubuntu 12.04 instance running on Windows 10.
 
-# Reflections:
+# Reflections
 
 I hadn't really studied testing when I was developing this app, so it's lacking tests. When I've finished my study on Ruby on Rails and Javascript I'll get back to this to polish my testing skills in Python in general.
 
